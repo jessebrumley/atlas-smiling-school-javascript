@@ -5,9 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>holberton-smiling</title>
     <!-- Custom and Font Styles  -->
-    <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="font-style.css" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Slick CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick-theme.css"/>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
     <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap"
@@ -42,28 +50,6 @@
       crossorigin="anonymous"
     />
     <style>
-      /* Loader styles */
-      .quotes {
-        position: relative;
-      }
-
-      .popular {
-        position: relative;
-      }
-  
-      #loader {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 150px;
-        height: 150px;
-        background: rgba(255, 255, 255, 0.8) url('images/loader2.svg') no-repeat center center;
-        background-size: contain;
-        transform: translate(-50%, -50%);
-        display: none; /* Hide by default */
-        z-index: 1000;
-      }
-      
     </style>
   </head>
   <body class="body">
@@ -161,7 +147,7 @@
     </header>
     <main class="main">
       <section class="quotes section d-flex align-items-center">
-        <div id="loader"></div>
+        <div id="quotes-loader"></div>
         <div class="container">
           <div
             id="carouselExampleControls"
@@ -200,7 +186,7 @@
         </div>
       </section>
       <section class="popular section d-flex align-items-center">
-        <div id="loader"></div>
+        <div id="tutorials-loader"></div>
         <div class="container">
           <header class="section-header">
             <h2 class="text-center">
@@ -307,7 +293,7 @@
         </div>
       </section>
       <section class="popular section d-flex align-items-center">
-        <div id="loader"></div>
+        <div id="videos-loader"></div>
         <div class="container">
           <header class="section-header">
             <h2 class="text-center">
@@ -396,192 +382,14 @@
         </div>
       </div>
     </footer>
-    <script>
-      // Quotes Section
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-      $(document).ready(function() {
-        $('#loader').show(); // Shows the loader
+    <!-- Slick JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
 
-        $.ajax({
-          url: 'https://smileschool-api.hbtn.info/quotes',
-          method: 'GET',
-          success: function(response) {
-            // Clear existing carousel
-            $('.carousel-quotes').empty();
-    
-            // Add items from the API
-            response.forEach((quote, index) => {
-              let activeClass = index === 0 ? ' active' : ''; // Set the first item as active
-              $('.carousel-quotes').append(`
-                <div class="carousel-item${activeClass}">
-                  <div class="row mx-auto align-items-center">
-                    <div class="col-12 col-sm-2 col-lg-2 offset-lg-1 text-center">
-                      <img src="${quote.pic_url}" class="d-block align-self-center" alt="Profile Pic" />
-                    </div>
-                    <div class="col-12 col-sm-7 offset-sm-2 col-lg-9 offset-lg-0">
-                      <div class="quote-text">
-                        <p class="text-white">« ${quote.text} »</p>
-                        <h4 class="text-white font-weight-bold">${quote.name}</h4>
-                        <span class="text-white">${quote.title}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              `);
-            });
-    
-            // Restart the carousel with new changes
-            $('#carouselExampleControls').carousel('dispose');
-            $('#carouselExampleControls').carousel();
-          
-            // Hide the loader after success
-            $('#loader').hide();
-          },
-          error: function() {
-            $('#error-message').text('Failed to load quotes');
-            // Hide the loader in case of error
-            $('#loader').hide();
-          }
-        });
-      });
-
-      // Tutorials Section
-
-      $(document).ready(function() {
-        $('#loader').show(); // Shows the loader
-
-        $.ajax({
-            url: 'https://smileschool-api.hbtn.info/popular-tutorials',
-            method: 'GET',
-            success: function(response) {
-                // Clear existing carousel
-                $('.carousel-tutorials').empty();
-    
-                let $currentSlide;
-                response.forEach((item, index) => {
-                    if (index % 4 === 0) {
-                        // This ensures the carousel only shows 4 cards per slide
-                        $currentSlide = $('<div>', { class: 'carousel-item' });
-                        if (index === 0) {
-                            $currentSlide.addClass('active'); // Sets the first item as active
-                        }
-                        $currentSlide.append('<div class="row no-gutters"></div>');
-                        $('.carousel-tutorials').append($currentSlide);
-                    }
-                    
-                    // Create card HTML
-                    const $card = $(`
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-flex justify-content-center">
-                            <div class="card">
-                                <img src="${item.thumb_url}" class="card-img-top" alt="Video thumbnail">
-                                <div class="card-img-overlay text-center">
-                                    <img src="images/play.png" alt="Play" width="64px" class="align-self-center play-overlay">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title font-weight-bold">${item.title}</h5>
-                                    <p class="card-text text-muted">${item["sub-title"]}</p>
-                                    <div class="creator d-flex align-items-center">
-                                        <img src="${item.author_pic_url}" alt="Creator of Video" width="30px" class="rounded-circle">
-                                        <h6 class="pl-3 m-0 main-color">${item.author}</h6>
-                                    </div>
-                                    <div class="info pt-3 d-flex justify-content-between">
-                                        <div class="rating">
-                                            ${Array.from({ length: 5 }, (_, i) => i < item.star ? '<img src="images/star_on.png" alt="star on" width="15px">' : '<img src="images/star_off.png" alt="star off" width="15px">').join('')}
-                                        </div>
-                                        <span class="main-color">${item.duration}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `);
-                    
-                    // Append card to the current slide
-                    $currentSlide.find('.row').append($card);
-                });
-    
-                // Restart the carousel with new changes
-                $('#carouselExampleControls').carousel('dispose');
-                $('#carouselExampleControls').carousel();
-    
-                // Hide the loader after success
-                $('#loader').hide();
-            },
-            error: function() {
-                $('#error-message').text('Failed to load tutorials');
-                // Hide the loader in case of error
-                $('#loader').hide();
-            }
-        });
-    });
-
-    // Latest Videos Section
-
-      $(document).ready(function() {
-        $('#loader').show(); // Shows the loader
-
-        $.ajax({
-            url: 'https://smileschool-api.hbtn.info/latest-videos',
-            method: 'GET',
-            success: function(response) {
-                // Clear existing carousel
-                $('.carousel-videos').empty();
-    
-                let $currentSlide;
-                response.forEach((item, index) => {
-                    if (index % 4 === 0) {
-                        // This ensures the carousel only shows 4 cards per slide
-                        $currentSlide = $('<div>', { class: 'carousel-item' });
-                        if (index === 0) {
-                            $currentSlide.addClass('active'); // Sets the first item as active
-                        }
-                        $currentSlide.append('<div class="row no-gutters"></div>');
-                        $('.carousel-videos').append($currentSlide);
-                    }
-                    
-                    // Create card HTML
-                    const $card = $(`
-                        <div class="col-12 col-sm-6 col-md-6 col-lg-3 d-flex justify-content-center">
-                            <div class="card">
-                                <img src="${item.thumb_url}" class="card-img-top" alt="Video thumbnail">
-                                <div class="card-img-overlay text-center">
-                                    <img src="images/play.png" alt="Play" width="64px" class="align-self-center play-overlay">
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title font-weight-bold">${item.title}</h5>
-                                    <p class="card-text text-muted">${item["sub-title"]}</p>
-                                    <div class="creator d-flex align-items-center">
-                                        <img src="${item.author_pic_url}" alt="Creator of Video" width="30px" class="rounded-circle">
-                                        <h6 class="pl-3 m-0 main-color">${item.author}</h6>
-                                    </div>
-                                    <div class="info pt-3 d-flex justify-content-between">
-                                        <div class="rating">
-                                            ${Array.from({ length: 5 }, (_, i) => i < item.star ? '<img src="images/star_on.png" alt="star on" width="15px">' : '<img src="images/star_off.png" alt="star off" width="15px">').join('')}
-                                        </div>
-                                        <span class="main-color">${item.duration}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `);
-                    
-                    // Append card to the current slide
-                    $currentSlide.find('.row').append($card);
-                });
-    
-                // Restart the carousel with new changes
-                $('#carouselExampleControls').carousel('dispose');
-                $('#carouselExampleControls').carousel();
-
-                // Hide the loader after success
-                $('#loader').hide();
-            },
-            error: function() {
-                $('#error-message').text('Failed to load tutorials');
-                // Hide the loader in case of error
-                $('#loader').hide();
-            }
-        });
-    });
-    </script>
+    <!-- Custom Script -->
+    <script src="script.js"></script>
   </body>
 </html>
