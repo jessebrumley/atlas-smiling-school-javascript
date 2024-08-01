@@ -7,6 +7,8 @@
     <!-- Custom and Font Styles  -->
     <link rel="stylesheet" href="font-style.css" />
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- Slick CSS -->
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.css"/>
@@ -143,17 +145,48 @@
         </section>
       </div>
     </header>
-    <main class="main"> <!--Quotes Section-->
+    <main class="main">
       <section class="quotes section d-flex align-items-center">
-        <div id="loader"></div>
+        <div id="quotes-loader"></div>
         <div class="container">
-          <div class="slick-carousel carousel-quotes">
-            <!-- Slides willbe inserted here -->
+          <div
+            id="carouselExampleControls"
+            class="carousel slide"
+            data-ride="carousel"
+          >
+            <div class="carousel-inner carousel-quotes">
+            </div>
+            <a
+              class="carousel-control-prev arrow-left"
+              href="#carouselExampleControls"
+              role="button"
+              data-slide="prev"
+            >
+              <img
+                src="images/arrow_white_left.png"
+                alt="Quote Previous"
+                aria-hidden="true"
+              />
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="carousel-control-next arrow-right"
+              href="#carouselExampleControls"
+              role="button"
+              data-slide="next"
+            >
+              <img
+                src="images/arrow_white_right.png"
+                alt="Quote Next"
+                aria-hidden="true"
+              />
+              <span class="sr-only">Next</span>
+            </a>
           </div>
         </div>
-      </section> <!--Tutorials Section-->
+      </section>
       <section class="popular section d-flex align-items-center">
-        <div id="loader"></div>
+        <div id="tutorials-loader"></div>
         <div class="container">
           <header class="section-header">
             <h2 class="text-center">
@@ -161,11 +194,42 @@
               <span class="main-color font-weight-bold">popular</span> tutorials
             </h2>
           </header>
-          <div class="slick-carousel carousel-tutorials">
-            <!-- Slides will be dynamically inserted here by JavaScript -->
+          <div
+            id="carouselExampleControls2"
+            class="carousel slide"
+            data-ride="carousel"
+          >
+            <div class="carousel-inner carousel-tutorials">
+            </div>
+            <a
+              class="carousel-control-prev arrow-left"
+              href="#carouselExampleControls2"
+              role="button"
+              data-slide="prev"
+            >
+              <img
+                src="images/arrow_black_left.png"
+                alt="Quote Previous"
+                aria-hidden="true"
+              />
+              <span class="sr-only">Previous</span>
+            </a>
+            <a
+              class="carousel-control-next arrow-right"
+              href="#carouselExampleControls2"
+              role="button"
+              data-slide="next"
+            >
+              <img
+                src="images/arrow_black_right.png"
+                alt="Quote Next"
+                aria-hidden="true"
+              />
+              <span class="sr-only">Next</span>
+            </a>
           </div>
         </div>
-      </section> <!-- Membership Section -->
+      </section>
       <section class="smiles section">
         <div class="container">
           <header class="section-header">
@@ -227,20 +291,33 @@
             <button class="btn btn-smile text-white">REGISTER FOR FREE</button>
           </div>
         </div>
-      </section><!-- Videos Section -->
+      </section>
       <section class="popular section d-flex align-items-center">
-        <div id="loader"></div>
+        <div id="videos-loader"></div>
         <div class="container">
           <header class="section-header">
             <h2 class="text-center">
               <span class="main-color">Latest</span> videos
             </h2>
           </header>
-          <div class="slick-carousel carousel-videos">
-            <!-- Slides will be dynamically inserted here by JavaScript -->
+          <div
+            id="carouselExampleControls3"
+            class="carousel slide"
+            data-ride="carousel"
+          >
+          <div class="carousel-inner carousel-videos">
           </div>
+          <a class="carousel-control-prev d-none d-lg-block video-nav" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next d-none d-lg-block video-nav" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
         </div>
-      </section>      
+        </div>
+      </section>
     </main>
     <footer class="footer d-flex align-items-center justify-content-center">
       <div class="container">
@@ -305,7 +382,14 @@
         </div>
       </div>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.0/slick/slick.min.js"></script>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <!-- Slick JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel/slick/slick.min.js"></script>
+
+    <!-- Custom Script -->
     <script src="script.js"></script>
   </body>
 </html>
